@@ -1,0 +1,18 @@
+:root{--navy:#001230;--blue:#0a4a9e;--sil:#c9d1dc;--bg:#eef2f7;--ok:#1b8a4b;--bad:#c0392b}
+*{box-sizing:border-box}body{margin:0;font-family:Tahoma,Arial,sans-serif;background:var(--bg);color:#12203a}
+header{background:linear-gradient(90deg,var(--navy),#0b2a5c);color:#fff;display:flex;align-items:center;gap:10px;padding:8px 14px;position:sticky;top:0;z-index:5}
+header img{height:44px}header b{flex:1;font-size:15px}header small{color:var(--sil);display:block}
+button{font:inherit;border:0;border-radius:8px;padding:9px 14px;background:var(--blue);color:#fff;cursor:pointer}
+button.s{background:#fff;color:var(--blue);border:1px solid var(--sil)}button.g{background:var(--ok)}button.r{background:var(--bad)}
+nav{display:flex;gap:6px;overflow-x:auto;padding:10px 12px;background:#fff;border-bottom:1px solid var(--sil)}
+nav button{background:#fff;color:var(--navy);border:1px solid var(--sil);white-space:nowrap}nav button.on{background:var(--navy);color:#fff}
+main{max-width:900px;margin:0 auto;padding:14px}.card{background:#fff;border-radius:12px;padding:14px;margin-bottom:12px;box-shadow:0 1px 4px #0002}
+input,select,textarea{width:100%;font:inherit;padding:10px;border:1px solid var(--sil);border-radius:8px;margin:4px 0 10px;background:#fff}
+label{font-size:13px;color:#42536e}.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.row>*{flex:1}
+.chip{display:inline-block;background:#e3ecf9;color:var(--blue);border-radius:20px;padding:4px 12px;margin:3px;font-size:13px}
+.chip.full{background:#fde4e1;color:var(--bad)}.tag{background:var(--navy);color:#fff;border-radius:6px;padding:2px 8px;font-size:12px}
+.st{font-size:12px;padding:2px 8px;border-radius:6px;background:#ddd}.st.approved{background:#d5f2e1}.st.rejected,.st.cancelled{background:#fde4e1}.st.info{background:#fff0c9}
+.warn{background:#fde4e1;color:var(--bad);padding:10px;border-radius:8px;margin-bottom:10px}.acts{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.login{max-width:360px;margin:12vh auto;text-align:center}.login img{width:150px}#toast{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);background:var(--navy);color:#fff;padding:10px 18px;border-radius:10px;display:none;z-index:9;max-width:90%}
+table{width:100%;border-collapse:collapse;font-size:14px}td,th{padding:6px;border-bottom:1px solid #e3e8ef;text-align:right}.hid{display:none}
+#bell{position:relative;background:none;font-size:20px;padding:4px 8px}#bc{background:var(--bad);border-radius:10px;font-size:11px;padding:1px 6px;position:absolute;top:-4px;right:-2px}
