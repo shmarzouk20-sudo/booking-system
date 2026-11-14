@@ -17,7 +17,8 @@ let sec;
 
 // ---------- الدخول ----------
 function loginView(){$('#app').innerHTML=`<div class="card login"><img src="logo.png"><h2>شانجان أبو رواش</h2><p>نظام حجز مركز الخدمة</p>
-<form id="lf"><input id="ln" placeholder="اسم المستخدم" autocomplete="username"><input id="lp" type="password" placeholder="كلمة السر" autocomplete="current-password"><button style="width:100%">دخول</button></form></div>`;
+<form id="lf"><input id="ln" name="staff-name" placeholder="اسم المستخدم" autocomplete="off" autocapitalize="off" spellcheck="false" readonly onfocus="this.removeAttribute('readonly')"><input id="lp" type="password" placeholder="كلمة السر" autocomplete="current-password"><button style="width:100%">دخول</button></form></div>`;
+ setTimeout(()=>{const l=$('#ln');if(l&&l.value.includes('@'))l.value=''},300);
  $('#lf').onsubmit=async e=>{e.preventDefault();try{await auth.signInWithEmailAndPassword(mail($('#ln').value),$('#lp').value)}catch(x){toast('اسم المستخدم أو كلمة السر غير صحيحة')}}}
 auth.onAuthStateChanged(async u=>{S.un.forEach(f=>f());S.un=[];
  if(!u){S.me=null;return loginView()}
@@ -61,8 +62,8 @@ function names(){const r=S.me.role;let a=[];
 function dayView(b){const R=S.me.role,ks=R=='complaints'?['cpa','ic']:Object.keys(TY),l=names(),cp=['cpa','ic'];
  b.innerHTML=`<div class="card">${R=='security'?`<h3>حجوزات اليوم ${S.date}</h3>`:`<label>اليوم</label><input type="date" value="${S.date}" onchange="S.date=this.value;listen()">`}
  ${S.day.closed?'<div class="warn">هذا اليوم مغلق</div>':''}<div>${ks.map(chip).join('')}${R=='complaints'||R!='security'?`<span class="chip">إجمالي الشكاوى: ${(S.day.cpa||0)+(S.day.ic||0)}/${S.L.ct}</span>`:''}</div></div>
- <div class="card"><b>العملاء المعتمدون (${l.length})</b><table><tr><th>العميل</th><th>اللوحة</th><th>النوع</th>${R=='coordinator'?'<th>المسؤول</th><th>وافق عليه</th>':''}${['manager','admin','engineer','complaints'].includes(R)?'<th>المسؤول</th><th></th>':''}</tr>
- ${l.map(x=>`<tr><td>${esc(x.customer)}</td><td>${esc(x.plate)}</td><td><span class="tag">${TY[x.type]}</span></td>${R=='coordinator'?`<td>${esc(x.eng)}</td><td>${x.autoApproved?'موافقة تلقائية':esc(x.by||'—')}</td>`:''}${['manager','admin','engineer','complaints'].includes(R)?`<td>${esc(x.eng)}</td><td>${(x.engUid==S.me.uid||R=='manager'||R=='admin')?`<button class="r" onclick="act('cancel','${x.id}')">إلغاء</button>`:''}</td>`:''}</tr>`).join('')||'<tr><td>لا توجد حجوزات معتمدة لهذا اليوم</td></tr>'}</table></div>`}
+ <div class="card"><b>العملاء المعتمدون (${l.length})</b><table><tr><th>العميل</th><th>اللوحة</th><th>النوع</th>${['manager','admin','engineer','complaints'].includes(R)?'<th>المسؤول</th><th></th>':''}</tr>
+ ${l.map(x=>`<tr><td>${esc(x.customer)}</td><td>${esc(x.plate)}</td><td><span class="tag">${TY[x.type]}</span></td>${['manager','admin','engineer','complaints'].includes(R)?`<td>${esc(x.eng)}</td><td>${(x.engUid==S.me.uid||R=='manager'||R=='admin')?`<button class="r" onclick="act('cancel','${x.id}')">إلغاء</button>`:''}</td>`:''}</tr>`).join('')||'<tr><td>لا توجد حجوزات معتمدة لهذا اليوم</td></tr>'}</table></div>`}
 const card=(x,a='')=>`<div class="card"><div class="row"><b>${esc(x.customer)} · ${esc(x.plate)}</b><span class="st ${x.status}">${ST[x.status]}</span></div>
  <p><span class="tag">${TY[x.type]}</span> ${x.date}${x.km?' · '+x.km.toLocaleString()+' كم':''}${x.lastVisit?' · آخر زيارة '+x.lastVisit:''}<br>المسؤول: ${esc(x.eng)}${x.autoApproved?' (موافقة تلقائية)':''}</p>
  ${x.notes?`<p>ملاحظات: ${esc(x.notes)}</p>`:''}${x.reason?`<p>السبب: ${esc(x.reason)}</p>`:''}${(x.thread||[]).map(t=>`<p><i>${esc(t.by)}: ${esc(t.text)}</i></p>`).join('')}<div class="acts">${a}</div></div>`;
